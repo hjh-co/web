@@ -1,398 +1,368 @@
-# web
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>政协委员通 </title>
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Microsoft Yahei", sans-serif;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>政协委员通 - 左菜单优化版</title>
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Microsoft Yahei", sans-serif;
+}
+html, body {
+  height: 100%;
+  background: #f5f7fa;
+  color: #333;
+}
+.wrap {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
 
-        body {
-            background: #f7f8fa;
-            color: #333;
-            font-size: 14px;
-            display: flex;
-            min-height: 100vh;
-        }
+/* 左侧菜单 */
+.sidebar {
+  width: 210px;
+  background: #2c3e50;
+  color: #fff;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 8px rgba(0,0,0,0.15);
+}
+.logo {
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  background: #1a252f;
+}
+.menu {
+  flex: 1;
+  padding: 10px 0;
+  overflow-y: auto;
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  color: #cbd5e0;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.menu-item:hover {
+  background: #34495e;
+  color: #fff;
+}
+.menu-item.active {
+  background: #3498db;
+  color: #fff;
+  border-left: 4px solid #fff;
+}
+.menu-item i {
+  width: 16px;
+  text-align: center;
+}
 
-        /* ========== 左侧侧边栏 ========== */
-        .sidebar {
-            width: 200px;
-            background: #fff;
-            border-right: 1px solid #e5e7eb;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-        }
+/* 右侧主体 */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.header {
+  height: 65px;
+  background: #fff;
+  border-bottom: 1px solid #e4e7ed;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 24px;
+  gap: 20px;
+  flex-shrink: 0;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #3498db;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+}
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 20px;
-            height: 60px;
-            border-bottom: 1px solid #e5e7eb;
-        }
+/* 内容区 */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+.bread {
+  background: #fff;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  color: #666;
+  font-size: 13px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
 
-        .logo h2 {
-            color: #d93438;
-            font-size: 18px;
-        }
+/* 统计卡片 */
+.card-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border-left: 4px solid #3498db;
+}
+.card.label {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+}
+.card.num {
+  font-size: 26px;
+  font-weight: 600;
+  color: #2c3e50;
+}
 
-        /* 左侧菜单 */
-        .side-menu {
-            padding-top: 16px;
-            flex: 1;
-        }
+/* 模块标题 */
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.title i {
+  color: #3498db;
+}
 
-        .menu-item {
-            padding: 0 20px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            font-size: 14px;
-            transition: 0.2s;
-            position: relative;
-        }
+/* 文件列表 */
+.file-list {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.file-item {
+  width: 200px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.file-preview {
+  height: 120px;
+  display: grid;
+  place-items: center;
+  background: #f8f9fa;
+}
+.file-info {
+  padding: 12px;
+}
+.file-name {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.file-time {
+  font-size: 11px;
+  color: #999;
+  margin-top: 4px;
+}
 
-        .menu-item.active {
-            color: #d93438;
-            font-weight: 500;
-            background: #fef2f2;
-        }
-
-        .menu-item.active::after {
-            content: "";
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 3px;
-            height: 24px;
-            background: #d93438;
-            border-radius: 3px 0 0 3px;
-        }
-
-        .menu-item:hover:not(.active) {
-            background: #f5f7fa;
-        }
-
-        /* 右侧用户（顶部） */
-        .top-bar {
-            position: fixed;
-            left: 200px;
-            top: 0;
-            right: 0;
-            height: 60px;
-            background: #fff;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding: 0 24px;
-            z-index: 99;
-        }
-
-        .top-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .user {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #fde2e4;
-            color: #d93438;
-            display: grid;
-            place-items: center;
-            font-weight: bold;
-        }
-
-        /* ========== 内容区域 ========== */
-        .container {
-            margin-left: 200px;
-            margin-top: 60px;
-            padding: 24px 16px;
-            max-width: calc(100% - 200px);
-        }
-
-        /* 面包屑 */
-        .breadcrumb {
-            background: #fff;
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            color: #666;
-            font-size: 13px;
-        }
-
-        /* 统计卡片 */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 24px;
-        }
-
-        .stat-card {
-            background: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            border-left: 4px solid #d93438;
-        }
-
-        .stat-card.blue {
-            border-left-color: #165dff;
-        }
-
-        .stat-card.green {
-            border-left-color: #00b42a;
-        }
-
-        .stat-card .label {
-            font-size: 13px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        .stat-card .num {
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        /* 模块标题 */
-        .title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .title i {
-            color: #d93438;
-        }
-
-        /* 文件卡片 */
-        .file-grid {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-
-        .file {
-            width: 220px;
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #eee;
-        }
-
-        .file-preview {
-            height: 140px;
-            display: grid;
-            place-items: center;
-            background: #f5f7fa;
-        }
-
-        .file-info {
-            padding: 12px;
-        }
-
-        .file-name {
-            font-size: 13px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 4px;
-        }
-
-        .file-time {
-            font-size: 11px;
-            color: #999;
-        }
-
-        /* 动态列表 */
-        .news-box {
-            background: #fff;
-            border-radius: 8px;
-            padding: 20px;
-        }
-
-        .news-item {
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f2f5;
-            display: flex;
-            gap: 12px;
-        }
-
-        .news-tag {
-            padding: 4px 10px;
-            font-size: 12px;
-            border-radius: 4px;
-            background: #fff5f5;
-            color: #d93438;
-            white-space: nowrap;
-        }
-
-        .news-content {
-            flex: 1;
-        }
-
-        .news-title {
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .news-desc {
-            font-size: 12px;
-            color: #666;
-        }
-
-        .news-date {
-            font-size: 11px;
-            color: #999;
-            text-align: right;
-        }
-    </style>
+/* 动态 */
+.news {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.news-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #f2f3f5;
+  display: flex;
+  gap: 12px;
+}
+.news-tag {
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  background: #e8f4fd;
+  color: #3498db;
+  white-space: nowrap;
+}
+.news-content {
+  flex: 1;
+}
+.news-title {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.news-desc {
+  font-size: 12px;
+  color: #666;
+}
+.news-date {
+  font-size: 11px;
+  color: #999;
+  white-space: nowrap;
+}
+</style>
 </head>
 <body>
 
-<!-- ========== 左侧侧边栏 ========== -->
-<div class="sidebar">
-    <div class="logo">
-        <h2>政协委员通</h2>
+<div class="wrap">
+  <!-- 左侧菜单 -->
+  <div class="sidebar">
+    <div class="logo">政协委员履职平台</div>
+    <div class="menu">
+      <div class="menu-item active" onclick="render('home')">
+        <i class="fa-solid fa-house"></i>委员之家
+      </div>
+      <div class="menu-item" onclick="render('street')">
+        <i class="fa-solid fa-street-view"></i>街道委员小组
+      </div>
+      <div class="menu-item" onclick="render('sector')">
+        <i class="fa-solid fa-sitemap"></i>界别情况
+      </div>
+      <div class="menu-item" onclick="render('consult')">
+        <i class="fa-solid fa-handshake"></i>协商民主
+      </div>
+      <div class="menu-item" onclick="render('work')">
+        <i class="fa-solid fa-briefcase"></i>履职平台
+      </div>
+      <div class="menu-item" onclick="render('star')">
+        <i class="fa-solid fa-star"></i>星级工作室
+      </div>
+      <div class="menu-item" onclick="render('plan')">
+        <i class="fa-solid fa-calendar"></i>2026履职计划
+      </div>
     </div>
+  </div>
 
-    <div class="side-menu">
-        <div class="menu-item active" data-page="home"> <i class="fa-solid fa-house-chimney mr-2"></i>委员之家</div>
-        <div class="menu-item" data-page="street"> <i class="fa-solid fa-street-view mr-2"></i>街道委员小组</div>
-        <div class="menu-item" data-page="sector"> <i class="fa-solid fa-sitemap mr-2"></i>界别基本情况</div>
-        <div class="menu-item" data-page="center"> <i class="fa-solid fa-handshake mr-2"></i>协商民主实践</div>
-        <div class="menu-item" data-page="work"> <i class="fa-solid fa-briefcase mr-2"></i>委员履职平台</div>
-        <div class="menu-item" data-page="star"> <i class="fa-solid fa-star mr-2"></i>星级工作室风采</div>
-        <div class="menu-item" data-page="plan"> <i class="fa-solid fa-calendar-days mr-2"></i>2026履职计划</div>
+  <!-- 右侧 -->
+  <div class="main">
+    <div class="header">
+      <div class="user-info">
+        <div class="avatar">委</div>
+        <span>委员用户</span>
+      </div>
     </div>
-</div>
-
-<!-- ========== 顶部栏（用户信息） ========== -->
-<div class="top-bar">
-    <div class="top-right">
-        <i class="fa-solid fa-search"></i>
-        <i class="fa-solid fa-bell"></i>
-        <div class="user">委</div>
+    <div class="content">
+      <div class="bread" id="bread">当前位置：首页 / 委员之家</div>
+      <div id="page"></div>
     </div>
-</div>
-
-<!-- ========== 内容区域 ========== -->
-<div class="container">
-    <div class="breadcrumb" id="path">当前位置：首页 / 委员之家</div>
-    <div id="content"></div>
+  </div>
 </div>
 
 <script>
-    const pages = {
-        home: { name: "委员之家", path: "首页 / 委员之家" },
-        street: { name: "街道委员小组", path: "首页 / 街道委员小组" },
-        sector: { name: "界别基本情况", path: "首页 / 界别基本情况" },
-        center: { name: "协商民主实践", path: "首页 / 协商民主实践" },
-        work: { name: "委员履职平台", path: "首页 / 委员履职平台" },
-        star: { name: "星级工作室风采", path: "首页 / 星级工作室风采" },
-        plan: { name: "2026履职计划", path: "首页 / 2026履职计划" }
-    };
+// 模拟本地JSON数据
+const data = {
+  home: {
+    name: "委员之家",
+    path: "首页 / 委员之家",
+    stats: { total: 0, update: "2026-05-07", category: 16 },
+    files: [
+      { id:1, name:"活动现场照片", icon:"fa-image", time:"2026-05-07" },
+      { id:2, name:"情况介绍文档", icon:"fa-file-word", time:"2026-05-06" },
+      { id:3, name:"数据统计表格", icon:"fa-file-excel", time:"2026-05-05" }
+    ],
+    news: [
+      { id:1, title:"政协委员专题工作会议", desc:"开展专题调研与工作部署", date:"2026-05-07", tag:"会议" },
+      { id:2, title:"基层履职实践活动", desc:"深入社区开展服务与协商", date:"2026-05-06", tag:"活动" }
+    ]
+  },
+  street: { name:"街道委员小组", path:"首页 / 街道委员小组", stats:{total:0, update:"2026-05-07", category:8}, files:[], news:[] },
+  sector: { name:"界别基本情况", path:"首页 / 界别基本情况", stats:{total:0, update:"2026-05-07", category:6}, files:[], news:[] },
+  consult: { name:"协商民主实践", path:"首页 / 协商民主实践", stats:{total:0, update:"2026-05-07", category:5}, files:[], news:[] },
+  work: { name:"委员履职平台", path:"首页 / 委员履职平台", stats:{total:0, update:"2026-05-07", category:12}, files:[], news:[] },
+  star: { name:"星级工作室风采", path:"首页 / 星级工作室风采", stats:{total:0, update:"2026-05-07", category:4}, files:[], news:[] },
+  plan: { name:"2026履职计划", path:"首页 / 2026履职计划", stats:{total:0, update:"2026-05-07", category:3}, files:[], news:[] }
+};
 
-    // 渲染页面
-    function render(page) {
-        document.getElementById("path").innerText = "当前位置：" + pages[page].path;
-        document.getElementById("content").innerHTML = `
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="label">数据总量</div>
-                    <div class="num">0 项</div>
-                </div>
-                <div class="stat-card blue">
-                    <div class="label">最近更新</div>
-                    <div class="num">2026-04-23</div>
-                </div>
-                <div class="stat-card green">
-                    <div class="label">分类总数</div>
-                    <div class="num">16 类</div>
-                </div>
-            </div>
+// 渲染页面
+function render(page) {
+  const d = data[page];
+  document.getElementById("bread").innerText = "当前位置：" + d.path;
 
-            <div class="title"><i class="fa-solid fa-thumbtack"></i>${pages[page].name} - 资料文件</div>
-            <div class="file-grid">
-                <div class="file">
-                    <div class="file-preview"><i class="fa-solid fa-image fa-2x"></i></div>
-                    <div class="file-info">
-                        <div class="file-name">活动现场照片</div>
-                        <div class="file-time">2026-04-23</div>
-                    </div>
-                </div>
-                <div class="file">
-                    <div class="file-preview" style="background:#eff6ff"><i class="fa-brands fa-word fa-2x" style="color:#165dff"></i></div>
-                    <div class="file-info">
-                        <div class="file-name">情况介绍文档</div>
-                        <div class="file-time">2026-04-22</div>
-                    </div>
-                </div>
-                <div class="file">
-                    <div class="file-preview" style="background:#f0fdf4"><i class="fa-brands fa-excel fa-2x" style="color:#00b42a"></i></div>
-                    <div class="file-info">
-                        <div class="file-name">数据统计表格</div>
-                        <div class="file-time">2026-04-21</div>
-                    </div>
-                </div>
-            </div>
+  let filesHtml = d.files.map(f => `
+    <div class="file-item">
+      <div class="file-preview"><i class="fa-solid ${f.icon} fa-2x"></i></div>
+      <div class="file-info">
+        <div class="file-name">${f.name}</div>
+        <div class="file-time">${f.time}</div>
+      </div>
+    </div>
+  `).join('');
 
-            <div class="news-box">
-                <div class="title"><i class="fa-solid fa-bell"></i>${pages[page].name} - 最新动态</div>
-                <div class="news-item">
-                    <div class="news-tag">会议</div>
-                    <div class="news-content">
-                        <div class="news-title">政协委员专题工作会议</div>
-                        <div class="news-desc">开展专题调研与工作部署</div>
-                        <div class="news-date">2026-04-19</div>
-                    </div>
-                </div>
-                <div class="news-item">
-                    <div class="news-tag" style="background:#fff7ed;color:#f57c00">活动</div>
-                    <div class="news-content">
-                        <div class="news-title">基层履职实践活动</div>
-                        <div class="news-desc">深入社区开展服务与协商</div>
-                        <div class="news-date">2026-04-18</div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
+  let newsHtml = d.news.map(n => `
+    <div class="news-item">
+      <div class="news-tag">${n.tag}</div>
+      <div class="news-content">
+        <div class="news-title">${n.title}</div>
+        <div class="news-desc">${n.desc}</div>
+      </div>
+      <div class="news-date">${n.date}</div>
+    </div>
+  `).join('');
 
-    // 菜单切换
-    document.querySelectorAll('.menu-item').forEach(item => {
-        item.addEventListener('click', () => {
-            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
-            render(item.dataset.page);
-        });
-    });
+  document.getElementById("page").innerHTML = `
+    <div class="card-box">
+      <div class="card">
+        <div class="label">数据总量</div>
+        <div class="num">${d.stats.total} 项</div>
+      </div>
+      <div class="card" style="border-left-color:#2ecc71">
+        <div class="label">最近更新</div>
+        <div class="num">${d.stats.update}</div>
+      </div>
+      <div class="card" style="border-left-color:#f39c12">
+        <div class="label">分类总数</div>
+        <div class="num">${d.stats.category} 类</div>
+      </div>
+    </div>
 
-    // 默认打开
-    render('home');
+    <div class="title"><i class="fa-solid fa-thumbtack"></i>${d.name} - 资料文件</div>
+    <div class="file-list">${filesHtml}</div>
+
+    <div class="news">
+      <div class="title"><i class="fa-solid fa-bell"></i>${d.name} - 最新动态</div>
+      ${newsHtml}
+    </div>
+  `;
+
+  // 菜单高亮
+  document.querySelectorAll('.menu-item').forEach(el => {
+    el.classList.remove('active');
+  });
+  document.querySelectorAll('.menu-item')[['home','street','sector','consult','work','star','plan'].indexOf(page)].classList.add('active');
+}
+
+// 初始加载
+render('home');
 </script>
 </body>
 </html>
